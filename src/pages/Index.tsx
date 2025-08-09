@@ -128,6 +128,128 @@ const Index = () => {
   }
 
   const [selectedLevel, setSelectedLevel] = useState('school')
+  const [selectedCourse, setSelectedCourse] = useState(null)
+  const [showLessons, setShowLessons] = useState(false)
+
+  const courseContent = {
+    'math-5-9': {
+      title: 'Математика 5-6 классы',
+      description: 'Основы арифметики, дроби, проценты, начала алгебры',
+      totalLessons: 48,
+      modules: [
+        {
+          id: 1,
+          title: 'Натуральные числа',
+          lessons: [
+            { id: 1, title: 'Обозначение натуральных чисел', duration: '45 мин', completed: true },
+            { id: 2, title: 'Отрезок. Длина отрезка', duration: '45 мин', completed: true },
+            { id: 3, title: 'Плоскость. Прямая. Луч', duration: '45 мин', completed: false },
+            { id: 4, title: 'Шкалы и координаты', duration: '45 мин', completed: false },
+          ]
+        },
+        {
+          id: 2,
+          title: 'Сложение и вычитание натуральных чисел',
+          lessons: [
+            { id: 5, title: 'Сложение натуральных чисел и его свойства', duration: '45 мин', completed: false },
+            { id: 6, title: 'Вычитание натуральных чисел', duration: '45 мин', completed: false },
+            { id: 7, title: 'Числовые и буквенные выражения', duration: '45 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Решение примеров на сложение', dueDate: '2024-08-15', status: 'completed', grade: 5 },
+        { id: 2, title: 'Задачи на проценты', dueDate: '2024-08-18', status: 'pending', grade: null },
+        { id: 3, title: 'Контрольная работа №1', dueDate: '2024-08-22', status: 'overdue', grade: null },
+      ]
+    },
+    'russian-5-9': {
+      title: 'Русский язык 5-9 классы',
+      description: 'Фонетика, морфология, синтаксис, пунктуация, развитие речи',
+      totalLessons: 68,
+      modules: [
+        {
+          id: 1,
+          title: 'Фонетика и орфоэпия',
+          lessons: [
+            { id: 1, title: 'Звуки речи. Система гласных звуков', duration: '45 мин', completed: true },
+            { id: 2, title: 'Система согласных звуков', duration: '45 мин', completed: true },
+            { id: 3, title: 'Изменение звуков в речевом потоке', duration: '45 мин', completed: false },
+          ]
+        },
+        {
+          id: 2,
+          title: 'Лексикология и фразеология',
+          lessons: [
+            { id: 4, title: 'Слово как единица языка', duration: '45 мин', completed: false },
+            { id: 5, title: 'Однозначные и многозначные слова', duration: '45 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Фонетический разбор слов', dueDate: '2024-08-16', status: 'completed', grade: 4 },
+        { id: 2, title: 'Сочинение "Мой любимый день"', dueDate: '2024-08-20', status: 'in_progress', grade: null },
+      ]
+    },
+    'programming': {
+      title: 'Программирование (СПО)',
+      description: 'Основы программирования, алгоритмы, структуры данных',
+      totalLessons: 120,
+      modules: [
+        {
+          id: 1,
+          title: 'Основы программирования',
+          lessons: [
+            { id: 1, title: 'Введение в программирование', duration: '90 мин', completed: true },
+            { id: 2, title: 'Переменные и типы данных', duration: '90 мин', completed: true },
+            { id: 3, title: 'Условные конструкции', duration: '90 мин', completed: false },
+            { id: 4, title: 'Циклы', duration: '90 мин', completed: false },
+          ]
+        },
+        {
+          id: 2,
+          title: 'Структуры данных',
+          lessons: [
+            { id: 5, title: 'Массивы', duration: '90 мин', completed: false },
+            { id: 6, title: 'Списки и кортежи', duration: '90 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Написать программу "Калькулятор"', dueDate: '2024-08-25', status: 'in_progress', grade: null },
+        { id: 2, title: 'Решить задачи на массивы', dueDate: '2024-08-28', status: 'pending', grade: null },
+      ]
+    },
+    'higher-math': {
+      title: 'Высшая математика',
+      description: 'Математический анализ, линейная алгебра, дифференциальные уравнения',
+      totalLessons: 144,
+      modules: [
+        {
+          id: 1,
+          title: 'Введение в математический анализ',
+          lessons: [
+            { id: 1, title: 'Множества и операции над ними', duration: '90 мин', completed: true },
+            { id: 2, title: 'Функции и их свойства', duration: '90 мин', completed: true },
+            { id: 3, title: 'Предел функции', duration: '90 мин', completed: false },
+            { id: 4, title: 'Непрерывность функции', duration: '90 мин', completed: false },
+          ]
+        },
+        {
+          id: 2,
+          title: 'Дифференциальное исчисление',
+          lessons: [
+            { id: 5, title: 'Производная функции', duration: '90 мин', completed: false },
+            { id: 6, title: 'Правила дифференцирования', duration: '90 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Вычислить пределы функций', dueDate: '2024-08-20', status: 'completed', grade: 4 },
+        { id: 2, title: 'Найти производные сложных функций', dueDate: '2024-08-25', status: 'pending', grade: null },
+      ]
+    }
+  }
 
   const sendMessage = () => {
     if (newMessage.trim()) {
@@ -398,7 +520,10 @@ const Index = () => {
                         </div>
                         <Progress value={course.progress} className="h-2" />
                       </div>
-                      <Button className="w-full">
+                      <Button className="w-full" onClick={() => {
+                        setSelectedCourse(course.id)
+                        setShowLessons(true)
+                      }}>
                         <Icon name="Play" size={16} className="mr-2" />
                         Продолжить
                       </Button>
@@ -428,13 +553,120 @@ const Index = () => {
                         </div>
                         <Progress value={course.progress} className="h-2" />
                       </div>
-                      <Button className="w-full">
+                      <Button className="w-full" onClick={() => {
+                        setSelectedCourse(course.id)
+                        setShowLessons(true)
+                      }}>
                         <Icon name="Play" size={16} className="mr-2" />
                         Продолжить
                       </Button>
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+            )}
+
+            {/* Course Details Modal */}
+            {showLessons && selectedCourse && courseContent[selectedCourse] && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+                <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                  <div className="p-6 border-b">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h2 className="text-2xl font-bold">{courseContent[selectedCourse].title}</h2>
+                        <p className="text-gray-600 mt-1">{courseContent[selectedCourse].description}</p>
+                      </div>
+                      <Button variant="ghost" size="sm" onClick={() => setShowLessons(false)}>
+                        <Icon name="X" size={20} />
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex h-[calc(90vh-120px)]">
+                    {/* Course Content */}
+                    <div className="flex-1 p-6 overflow-y-auto">
+                      <Tabs defaultValue="lessons" className="w-full">
+                        <TabsList className="grid w-full grid-cols-2 mb-6">
+                          <TabsTrigger value="lessons">Уроки</TabsTrigger>
+                          <TabsTrigger value="homework">Домашние задания</TabsTrigger>
+                        </TabsList>
+                        
+                        <TabsContent value="lessons" className="space-y-6">
+                          {courseContent[selectedCourse].modules.map((module) => (
+                            <Card key={module.id}>
+                              <CardHeader>
+                                <CardTitle className="text-lg">{module.title}</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="space-y-3">
+                                  {module.lessons.map((lesson) => (
+                                    <div key={lesson.id} className={`flex items-center justify-between p-3 rounded-lg border ${lesson.completed ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
+                                      <div className="flex items-center space-x-3">
+                                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${lesson.completed ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-600'}`}>
+                                          {lesson.completed ? (
+                                            <Icon name="Check" size={16} />
+                                          ) : (
+                                            <span className="text-xs">{lesson.id}</span>
+                                          )}
+                                        </div>
+                                        <div>
+                                          <h4 className="font-medium">{lesson.title}</h4>
+                                          <p className="text-sm text-gray-500">{lesson.duration}</p>
+                                        </div>
+                                      </div>
+                                      <Button size="sm" variant={lesson.completed ? "outline" : "default"}>
+                                        {lesson.completed ? 'Повторить' : 'Изучить'}
+                                      </Button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </TabsContent>
+                        
+                        <TabsContent value="homework" className="space-y-4">
+                          {courseContent[selectedCourse].homework.map((hw) => (
+                            <Card key={hw.id}>
+                              <CardContent className="p-4">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h4 className="font-medium">{hw.title}</h4>
+                                    <div className="flex items-center space-x-4 text-sm text-gray-500 mt-1">
+                                      <span>Срок: {hw.dueDate}</span>
+                                      {hw.grade && <span>Оценка: {hw.grade}</span>}
+                                    </div>
+                                  </div>
+                                  <Badge variant={
+                                    hw.status === 'completed' ? 'default' :
+                                    hw.status === 'in_progress' ? 'secondary' :
+                                    hw.status === 'overdue' ? 'destructive' : 'outline'
+                                  }>
+                                    {hw.status === 'completed' ? 'Выполнено' :
+                                     hw.status === 'in_progress' ? 'В работе' :
+                                     hw.status === 'overdue' ? 'Просрочено' : 'Ожидает'}
+                                  </Badge>
+                                </div>
+                                <div className="mt-3 flex space-x-2">
+                                  <Button size="sm" variant="outline">
+                                    <Icon name="FileText" size={14} className="mr-1" />
+                                    Условие
+                                  </Button>
+                                  {hw.status !== 'completed' && (
+                                    <Button size="sm">
+                                      <Icon name="Upload" size={14} className="mr-1" />
+                                      Сдать работу
+                                    </Button>
+                                  )}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </TabsContent>
+                      </Tabs>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </TabsContent>
