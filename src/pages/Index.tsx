@@ -130,6 +130,7 @@ const Index = () => {
   const [selectedLevel, setSelectedLevel] = useState('school')
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [showLessons, setShowLessons] = useState(false)
+  const [chatProgram, setChatProgram] = useState('general')
 
   const courseContent = {
     'math-5-9': {
@@ -248,7 +249,109 @@ const Index = () => {
         { id: 1, title: 'Вычислить пределы функций', dueDate: '2024-08-20', status: 'completed', grade: 4 },
         { id: 2, title: 'Найти производные сложных функций', dueDate: '2024-08-25', status: 'pending', grade: null },
       ]
+    },
+    // Добавляем универсальный контент для всех курсов
+    'math-1-4': {
+      title: 'Математика 1-4 классы',
+      description: 'Основы арифметики для начальной школы',
+      totalLessons: 32,
+      modules: [
+        {
+          id: 1,
+          title: 'Числа от 1 до 100',
+          lessons: [
+            { id: 1, title: 'Счёт предметов', duration: '35 мин', completed: true },
+            { id: 2, title: 'Сравнение чисел', duration: '35 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Решение примеров на сложение', dueDate: '2024-08-15', status: 'completed', grade: 5 },
+      ]
+    },
+    'physics-7-9': {
+      title: 'Физика 7-9 классы',
+      description: 'Механика, тепловые явления, электричество',
+      totalLessons: 68,
+      modules: [
+        {
+          id: 1,
+          title: 'Первоначальные сведения о строении вещества',
+          lessons: [
+            { id: 1, title: 'Что изучает физика', duration: '45 мин', completed: true },
+            { id: 2, title: 'Молекулы и атомы', duration: '45 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Лабораторная работа "Измерение объёма тела"', dueDate: '2024-08-20', status: 'pending', grade: null },
+      ]
+    },
+    'algorithms': {
+      title: 'Алгоритмы и структуры данных',
+      description: 'Основные алгоритмы программирования',
+      totalLessons: 60,
+      modules: [
+        {
+          id: 1,
+          title: 'Сложность алгоритмов',
+          lessons: [
+            { id: 1, title: 'Введение в анализ алгоритмов', duration: '90 мин', completed: true },
+            { id: 2, title: 'Временная сложность O-notation', duration: '90 мин', completed: false },
+          ]
+        }
+      ],
+      homework: [
+        { id: 1, title: 'Реализация алгоритма сортировки', dueDate: '2024-08-25', status: 'in_progress', grade: null },
+      ]
     }
+  }
+
+  const generateDefaultContent = (courseId, title, description) => ({
+    title,
+    description,
+    totalLessons: 24,
+    modules: [
+      {
+        id: 1,
+        title: 'Введение',
+        lessons: [
+          { id: 1, title: 'Основные понятия', duration: '45 мин', completed: false },
+          { id: 2, title: 'Методы изучения', duration: '45 мин', completed: false },
+          { id: 3, title: 'Практические применения', duration: '45 мин', completed: false },
+        ]
+      },
+      {
+        id: 2,
+        title: 'Основы',
+        lessons: [
+          { id: 4, title: 'Теоретические основы', duration: '45 мин', completed: false },
+          { id: 5, title: 'Практические задания', duration: '45 мин', completed: false },
+        ]
+      }
+    ],
+    homework: [
+      { id: 1, title: 'Вводное задание', dueDate: '2024-08-20', status: 'pending', grade: null },
+      { id: 2, title: 'Практическая работа', dueDate: '2024-08-25', status: 'pending', grade: null },
+    ]
+  })
+
+  const getCourseContent = (courseId, courseTitle = '', courseDescription = '') => {
+    return courseContent[courseId] || generateDefaultContent(courseId, courseTitle, courseDescription)
+  }
+
+  const chatPrograms = {
+    general: 'Общие вопросы',
+    'math-elementary': 'Математика (1-4 классы)',
+    'math-middle': 'Математика (5-9 классы)', 
+    'math-high': 'Математика (10-11 классы)',
+    'russian': 'Русский язык',
+    'physics': 'Физика',
+    'chemistry': 'Химия',
+    'biology': 'Биология',
+    'history': 'История',
+    'programming': 'Программирование',
+    'higher-math': 'Высшая математика',
   }
 
   const sendMessage = () => {
@@ -422,7 +525,10 @@ const Index = () => {
                             </div>
                             <Progress value={course.progress} className="h-1.5" />
                           </div>
-                          <Button size="sm" className="w-full">
+                          <Button size="sm" className="w-full" onClick={() => {
+                            setSelectedCourse(course.id)
+                            setShowLessons(true)
+                          }}>
                             <Icon name="Play" size={14} className="mr-1" />
                             Изучать
                           </Button>
@@ -455,7 +561,10 @@ const Index = () => {
                             </div>
                             <Progress value={course.progress} className="h-1.5" />
                           </div>
-                          <Button size="sm" className="w-full">
+                          <Button size="sm" className="w-full" onClick={() => {
+                            setSelectedCourse(course.id)
+                            setShowLessons(true)
+                          }}>
                             <Icon name="Play" size={14} className="mr-1" />
                             Изучать
                           </Button>
@@ -488,7 +597,10 @@ const Index = () => {
                             </div>
                             <Progress value={course.progress} className="h-1.5" />
                           </div>
-                          <Button size="sm" className="w-full">
+                          <Button size="sm" className="w-full" onClick={() => {
+                            setSelectedCourse(course.id)
+                            setShowLessons(true)
+                          }}>
                             <Icon name="Play" size={14} className="mr-1" />
                             Изучать
                           </Button>
@@ -567,14 +679,14 @@ const Index = () => {
             )}
 
             {/* Course Details Modal */}
-            {showLessons && selectedCourse && courseContent[selectedCourse] && (
+            {showLessons && selectedCourse && (
               <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
                 <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
                   <div className="p-6 border-b">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h2 className="text-2xl font-bold">{courseContent[selectedCourse].title}</h2>
-                        <p className="text-gray-600 mt-1">{courseContent[selectedCourse].description}</p>
+                        <h2 className="text-2xl font-bold">{getCourseContent(selectedCourse).title}</h2>
+                        <p className="text-gray-600 mt-1">{getCourseContent(selectedCourse).description}</p>
                       </div>
                       <Button variant="ghost" size="sm" onClick={() => setShowLessons(false)}>
                         <Icon name="X" size={20} />
@@ -592,7 +704,7 @@ const Index = () => {
                         </TabsList>
                         
                         <TabsContent value="lessons" className="space-y-6">
-                          {courseContent[selectedCourse].modules.map((module) => (
+                          {getCourseContent(selectedCourse).modules.map((module) => (
                             <Card key={module.id}>
                               <CardHeader>
                                 <CardTitle className="text-lg">{module.title}</CardTitle>
@@ -626,7 +738,7 @@ const Index = () => {
                         </TabsContent>
                         
                         <TabsContent value="homework" className="space-y-4">
-                          {courseContent[selectedCourse].homework.map((hw) => (
+                          {getCourseContent(selectedCourse).homework.map((hw) => (
                             <Card key={hw.id}>
                               <CardContent className="p-4">
                                 <div className="flex items-center justify-between">
@@ -738,6 +850,19 @@ const Index = () => {
                       AI-Учитель
                       <Badge className="ml-auto bg-green-100 text-green-800">Online</Badge>
                     </CardTitle>
+                    {/* Program Selector */}
+                    <div className="mt-4">
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Выберите предмет:</label>
+                      <select 
+                        value={chatProgram} 
+                        onChange={(e) => setChatProgram(e.target.value)}
+                        className="w-full p-2 border border-gray-200 rounded-md text-sm"
+                      >
+                        {Object.entries(chatPrograms).map(([key, label]) => (
+                          <option key={key} value={key}>{label}</option>
+                        ))}
+                      </select>
+                    </div>
                   </CardHeader>
               
               <CardContent className="flex-1 flex flex-col">
@@ -857,7 +982,7 @@ const Index = () => {
                   <CardContent>
                     <div className="space-y-2 text-sm text-gray-600">
                       <p>💡 <strong>Совет:</strong> Задавайте конкретные вопросы</p>
-                      <p>🎯 <strong>Фокус:</strong> Математика (Алгебра)</p>
+                      <p>🎯 <strong>Фокус:</strong> {chatPrograms[chatProgram]}</p>
                       <p>⭐ <strong>Уровень:</strong> Средний</p>
                       <p>📈 <strong>Прогресс:</strong> 75% завершено</p>
                     </div>
