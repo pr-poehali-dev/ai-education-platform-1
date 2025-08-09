@@ -88,11 +88,11 @@ const Index = () => {
                 Адаптивные учебные планы, созданные специально для вас искусственным интеллектом
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+                <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700" onClick={() => setActiveTab('chat')}>
                   <Icon name="Play" size={20} className="mr-2" />
                   Начать обучение
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" onClick={() => setActiveTab('courses')}>
                   <Icon name="BookOpen" size={20} className="mr-2" />
                   Посмотреть курсы
                 </Button>
