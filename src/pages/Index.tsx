@@ -235,14 +235,17 @@ const Index = () => {
 
           {/* Chat Teacher Section */}
           <TabsContent value="chat" className="space-y-6">
-            <Card className="h-[600px] flex flex-col">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Icon name="Bot" size={24} className="mr-3 text-blue-500" />
-                  AI-Учитель
-                  <Badge className="ml-auto bg-green-100 text-green-800">Online</Badge>
-                </CardTitle>
-              </CardHeader>
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* Chat Interface */}
+              <div className="lg:col-span-2">
+                <Card className="h-[600px] flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Icon name="Bot" size={24} className="mr-3 text-blue-500" />
+                      AI-Учитель
+                      <Badge className="ml-auto bg-green-100 text-green-800">Online</Badge>
+                    </CardTitle>
+                  </CardHeader>
               
               <CardContent className="flex-1 flex flex-col">
                 <div className="flex-1 space-y-4 overflow-y-auto mb-4">
@@ -277,7 +280,98 @@ const Index = () => {
                   </Button>
                 </div>
               </CardContent>
-            </Card>
+                </Card>
+              </div>
+
+              {/* AI Teaching Tools */}
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Инструменты обучения</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button className="w-full justify-start" variant="outline">
+                      <Icon name="PenTool" size={16} className="mr-2" />
+                      Виртуальная доска
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Icon name="Calculator" size={16} className="mr-2" />
+                      Калькулятор
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Icon name="FileText" size={16} className="mr-2" />
+                      Генератор задач
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Icon name="Upload" size={16} className="mr-2" />
+                      Загрузить файл
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Быстрые действия</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button className="w-full justify-start text-sm" variant="ghost" 
+                      onClick={() => {
+                        setMessages(prev => [...prev, { 
+                          id: Date.now(), 
+                          text: 'Объясни мне эту тему простыми словами', 
+                          sender: 'user' 
+                        }])
+                      }}>
+                      💡 "Объясни простыми словами"
+                    </Button>
+                    <Button className="w-full justify-start text-sm" variant="ghost"
+                      onClick={() => {
+                        setMessages(prev => [...prev, { 
+                          id: Date.now(), 
+                          text: 'Дай мне практические задания', 
+                          sender: 'user' 
+                        }])
+                      }}>
+                      📝 "Дай практические задания"
+                    </Button>
+                    <Button className="w-full justify-start text-sm" variant="ghost"
+                      onClick={() => {
+                        setMessages(prev => [...prev, { 
+                          id: Date.now(), 
+                          text: 'Проверь мое решение', 
+                          sender: 'user' 
+                        }])
+                      }}>
+                      ✅ "Проверь мое решение"
+                    </Button>
+                    <Button className="w-full justify-start text-sm" variant="ghost"
+                      onClick={() => {
+                        setMessages(prev => [...prev, { 
+                          id: Date.now(), 
+                          text: 'Покажи пример', 
+                          sender: 'user' 
+                        }])
+                      }}>
+                      📖 "Покажи пример"
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">AI Подсказки</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <p>💡 <strong>Совет:</strong> Задавайте конкретные вопросы</p>
+                      <p>🎯 <strong>Фокус:</strong> Математика (Алгебра)</p>
+                      <p>⭐ <strong>Уровень:</strong> Средний</p>
+                      <p>📈 <strong>Прогресс:</strong> 75% завершено</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
